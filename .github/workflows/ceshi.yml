@@ -7,14 +7,22 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  my_first_job1:
+    name: My first job
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the site in the jekyll/builder container
+    - name: checkout
+      uses: actions/checkout@master
+    - name: Run a single-line script
+      run: echo "Hello World!"
+  my_second_job:
+    name: My second job
+    runs-on: macos-latest
+    steps:
+    - name: Run a multi-line script
+      env:
+        MY_VAR: Hello World!
+        MY_NAME: P3TERX
       run: |
-        docker run \
-        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+        echo $MY_VAR
+        echo My name is $MY_NAME
